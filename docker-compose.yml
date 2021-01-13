@@ -1,0 +1,64 @@
+version: '3'
+services:
+  #chrome-node:
+  #  build: ../beacon-selenium-base
+  #  ports:
+  #    - 4444:4444
+  #  volumes:
+  #    - /dev/shm:/dev/shm # Mitigates the Chromium issue described at https://code.google.com/p/chromium/issues/detail?id=519952
+
+  #feedapp:
+  #  build:
+  #    context: .
+  #  env_file:
+  #    - .env
+  #  links:
+  #    - chrome-node
+  #   command: run TRSPRT_INDOT
+  #   command: load.py
+
+  feedapp:
+    build:
+      context: .
+    env_file:
+      - ./.env.local
+    environment:
+      - ALL_PROXY=http://172.31.28.164:8888/
+      - COLORADO_TRANSPORT_API_KEY=49GR6AX-38Q4468-JSEFHQY-K7QM6ZT
+    #links:
+    # - chrome-node
+    # command: run TRSPRT_INDOT
+    volumes:
+      - ./app:/app
+      - ./install_dependencies.sh:/app/install_dependencies.sh
+      - ./requirements.txt:/app/requirements.txt
+      - ./run_data_loader:/app/run_data_loader
+      - ./schedule_liveness_probe.sh:/app/schedule_liveness_probe.sh
+      - ../beacon-lib-py/lib:/app/lib    # command: ./load.py  --feed_tag police.POLICE_CharlotteTrafficNC
+
+    command: ./load.py --feed_tag weather.WTHR_NationalWeatherService
+
+
+
+
+
+  feedapp_redis:
+    image: redis:6.0.9-alpine
+    command: redis-server --requirepass sOmE_sEcUrE_pAsS
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./docker/redis-data:/var/lib/redis
+      - ./docker/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
+  feedapp_rabbitmq:
+    image: rabbitmq:3.8.9-alpine
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "rabbitmq"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+    ports:
+      - 5672:5672
+      - 15672:15672
