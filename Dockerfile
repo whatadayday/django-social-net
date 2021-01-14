@@ -5,8 +5,6 @@ FROM python:3.8
 RUN mkdir /django
 WORKDIR /django
 
-
-
 # copy the dependencies file to the working directory
 COPY requirements.txt .
 
