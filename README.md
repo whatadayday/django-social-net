@@ -17,6 +17,7 @@
 
 # Run:
 `docker run --rm -it --entrypoint=bash socnet` run image with shell entrypoint
+
 `python manage.py runserver &` run django server in a background mode
 
 `docker run -p localhost:8000:8000 socnet` for test externally
