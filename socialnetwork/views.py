@@ -119,7 +119,7 @@ def clearbit_data(email):
         user = User.objects.get(email=email)
         user.person_info = clearbit_response.json()
         user.save()
-        log.info('updated person info for user email =', email)
+        log.info(f'updated person info for user email ={email}')
 
 
 class CreateUserBg(APIView):
