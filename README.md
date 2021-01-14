@@ -34,10 +34,8 @@
     For storing user ids related to post is used list structure serialized as json field.
     This is does not correspond to the normal database form, but has some benefits comparing to regular many2many table
     * Access to one field works faster than select from a one single table.
-    * This potential Post2User table will be grown unlimited eventually.
-    * It can be a definite problem with read and update for a big amount of data
-    * In our case (social network) we have unlimited posts, but amount of likes for one post is limited on average,
-    * json size which is 1GB is more than enough for keeping them
+    * This potential Post2User table will be grown unlimited eventually. So it can be a definite problem with read and update for a big amount of data
+    * In our case (social network) we have unlimited posts, but amount of likes for one post is not so big. Averagely it's up to thousand. JSON field size which is 1GB is quite enough for keeping them
     
 * CreateUser, CreateUserBg
     * use Hunter API for verifying user email address
