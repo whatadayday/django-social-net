@@ -41,7 +41,7 @@
 * CreateUser, CreateUserBg
     * use Hunter API for verifying user email address
     * use Clearbit API to get clearbit peronal info data
-    * the clearbit data d as json 'person_info' field in User model 
+    * clearbit data stored as json 'person_info' User field
 
    Implemented two ways of creating user entity
     * CreateUser /signup
