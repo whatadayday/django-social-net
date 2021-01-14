@@ -44,10 +44,10 @@
     * the clearbit data d as json 'person_info' field in User model 
 
    Implemented two ways of creating user entity
-    * CreateUser
+    * CreateUser /signup
         * use asynchrnous calls for API requests
         * after completing requests returns response to client
-    * CreateUserBg
+    * CreateUserBg /signupbg
         * calls Hunter API for verifying user email
         * return 'success' response to client 
         * put request to Clearbit data as django background task
