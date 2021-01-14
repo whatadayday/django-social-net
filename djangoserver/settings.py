@@ -25,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("SECRET_KEY", '@_zv8)b=2vfkf+plh&5-d&f3-&p&$9c@^j#t&7yw1aos(7fx6m')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'background_task',
-
     'socialnetwork',
 ]
 
@@ -129,7 +128,7 @@ CLEARBIT_API_KEY = 'sk_a72dd526a35b457ee685b5ce6a678107'
 
 BACKGROUND_TASK_RUN_ASYNC = True
 
-LOG_LEVEL = logging.WARNING
+LOG_LEVEL = logging.ERROR
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

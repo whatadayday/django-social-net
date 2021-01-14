@@ -20,15 +20,6 @@ CLEARBIT_URL = 'https://person.clearbit.com/v1/people/email/{email}'
 
 logging.basicConfig(level=settings.LOG_LEVEL)
 
-from rest_framework.decorators import api_view
-
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def user_data(request, id: int):
-    import json
-    user_data = get_object_or_404(User, id=id)
-    return Response({'email': user_data.email, 'info': json.dumps(user_data.person_info)}, status=status.HTTP_201_CREATED)
-
 
 def benchmark(func):
     def wrapper(*args, **kwargs):
