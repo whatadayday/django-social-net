@@ -2,7 +2,7 @@
 
 # Usage:
 * `python manage.py test` unit test
-* `python manage.py runserver &` run django server in a background mode
+* `python manage.py runserver` run django server
 * `python testbot/botsocnet.py` automated bot, create user, posts and emulate user activity
 
 
@@ -14,8 +14,10 @@
 # Installing:
 `docker build -t socnet .` build docker image
 
+
 # Run:
 `docker run --rm -it --entrypoint=bash socnet` run image with shell entrypoint
+`python manage.py runserver &` run django server in a background mode
 
 `docker run -p localhost:8000:8000 socnet` for test externally
 
