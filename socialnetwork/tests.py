@@ -42,9 +42,8 @@ class BasicTest(APITestCase):
         self.assertEqual(response.status_code, 400)
 
     def test_user_has_clearbit_data(self):
-        c = Client()
         url = reverse('signup')
-        response = c.post(url, {'email': 'alex@clearbit.com', 'password': USER_PASSWD})
+        response = self.c.post(url, {'email': 'alex@clearbit.com', 'password': USER_PASSWD})
         self.assertEqual(response.status_code, 201)
         user = User.objects.get(email='alex@clearbit.com')
         if user.person_info:
@@ -73,25 +72,28 @@ class BasicTest(APITestCase):
         url = reverse('post_like', kwargs={'post_id': self.post_id})
         response = self.c.get(url)
         resp_json = response.json()
-        if response.status_code == 400 and resp_json.get('error'):
-            self.assertEqual(resp_json['error'].strip(), 'user can not like his own post')
-        else:
-            self.assertTrue(False)
+        self.assertEqual(response.status_code, 400)
 
         # Try to like another user post
         url = reverse('post_like', kwargs={'post_id': self.post2_id})
         response = self.c.get(url)
         resp_json = response.json()
-        if response.status_code == 201 and resp_json.get('post_id'):
-            self.assertTrue(True)
-        else:
-            self.assertTrue(False)
+        self.assertEqual(response.status_code, 200)
+
+        # Try to like another user post one more time
+        url = reverse('post_like', kwargs={'post_id': self.post2_id})
+        response = self.c.get(url)
+        resp_json = response.json()
+        self.assertEqual(response.status_code, 400)
 
         # Try to unlike another user post
         url = reverse('post_unlike', kwargs={'post_id': self.post2_id})
         response = self.c.get(url)
         resp_json = response.json()
-        if response.status_code == 201 and resp_json.get('post_id'):
-            self.assertTrue(True)
-        else:
-            self.assertTrue(False)
+        self.assertEqual(response.status_code, 200)
+
+        # Try to unlike another user post one more time
+        url = reverse('post_unlike', kwargs={'post_id': self.post2_id})
+        response = self.c.get(url)
+        resp_json = response.json()
+        self.assertEqual(response.status_code, 400)

@@ -59,7 +59,7 @@ async def user_verify_and_collect(email: str) -> dict:
             if hunter_response.status_code == httpx.codes.OK:
                 response['success'] = True
             else:
-                response['success'] = True
+                response['success'] = False
                 response['error'] = 'email is not validated by Hunter API'
 
             if clearbit_response.status_code == httpx.codes.OK:
@@ -212,7 +212,7 @@ class PostLike(APIView):
            'likes': 1,
         }
 
-        return Response(response, status=status.HTTP_201_CREATED)
+        return Response(response, status=status.HTTP_200_OK)
 
 
 class PostUnlike(APIView):
@@ -239,6 +239,6 @@ class PostUnlike(APIView):
             'likes': 0,
         }
 
-        return Response(response, status=status.HTTP_201_CREATED)
+        return Response(response, status=status.HTTP_200_OK)
 
 
