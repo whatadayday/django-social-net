@@ -25,7 +25,7 @@
 
 # Description:
 * while running `python manage.py test`
-    there is some warnings. it's okay as we test forbidden requests as well
+    there is some warnings. it is normal behaviour as we test forbidden requests too
     .WARNING:django.request:Bad Request: /socialnetwork/post/1/like
     WARNING:django.request:Bad Request: /socialnetwork/post/2/like
     WARNING:django.request:Bad Request: /socialnetwork/post/2/unlike
